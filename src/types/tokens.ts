@@ -60,12 +60,12 @@ export type SituationState =
 export interface Situation extends TokenBase {
   payloadType: "Situation";
   verbId: string;
-  spontanious: boolean;
+  spontaneous: boolean;
   timeRemaining: number;
-  recipeId: string;
-  recipeLabel: string;
-  currentRecipeId: string;
-  currentRecipeLabel: string;
+  recipeId: string | null;
+  recipeLabel: string | null;
+  currentRecipeId: string | null;
+  currentRecipeLabel: string | null;
   state: SituationState;
   icon: string;
   label: string;
