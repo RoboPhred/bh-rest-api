@@ -8,6 +8,13 @@ import { TimeSHMixin } from "./mixins/time.js";
 
 import { RESTApiBase } from "./RESTApiBase.js";
 
+export type BookOfHoursAPI = BHFixedVerbsMixin &
+  BHBrancrugMixin &
+  SituationsSHMixin &
+  FucinePathSHMixin &
+  GameStateSHMixin &
+  TimeSHMixin &
+  RESTApiBase;
 const BookOfHoursAPI = BHHandMixin(
   BHFixedVerbsMixin(
     BHBrancrugMixin(

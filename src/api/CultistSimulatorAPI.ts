@@ -6,6 +6,13 @@ import { TimeSHMixin } from "./mixins/time.js";
 
 import { RESTApiBase } from "./RESTApiBase.js";
 
+export type CultistSimulatorAPI = CSTabletopMixin &
+  SituationsSHMixin &
+  FucinePathSHMixin &
+  GameStateSHMixin &
+  TimeSHMixin &
+  RESTApiBase;
+
 const CultistSimulatorAPI = CSTabletopMixin(
   SituationsSHMixin(
     FucinePathSHMixin(GameStateSHMixin(TimeSHMixin(RESTApiBase)))
