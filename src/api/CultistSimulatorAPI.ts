@@ -12,4 +12,4 @@ const CultistSimulatorAPI = CSTabletopMixin(
   )
 );
 
-export { CultistSimulatorAPI as BookOfHoursAPI };
+export { CultistSimulatorAPI };
