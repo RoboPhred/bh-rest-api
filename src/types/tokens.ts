@@ -25,7 +25,7 @@ export interface ElementStack extends TokenBase {
   payloadType: "ElementStack";
   elementId: string;
   quantity: number;
-  lifetimeRemaining: string;
+  lifetimeRemaining: number;
   elementAspects: Aspects;
   mutations: Aspects;
   shrouded: boolean;
