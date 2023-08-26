@@ -10,5 +10,6 @@ export type BookOfHoursMixin = BHFixedVerbsMixin &
   BHHandMixin &
   BHBrancrugMixin;
 
-export const BookOfHoursMixin = (superclass: ConstructorOf<SHAPI>) =>
-  BHHandMixin(BHFixedVerbsMixin(BHBrancrugMixin(superclass)));
+export const BookOfHoursMixin = <T extends ConstructorOf<SHAPI>>(
+  superclass: T
+) => BHHandMixin(BHFixedVerbsMixin(BHBrancrugMixin(superclass)));

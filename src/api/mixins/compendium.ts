@@ -1,3 +1,4 @@
+import { Element } from "../../types/entities.js";
 import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";

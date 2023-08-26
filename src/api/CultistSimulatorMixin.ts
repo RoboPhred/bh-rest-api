@@ -6,5 +6,6 @@ import { CSTabletopMixin } from "./mixins/cs/tabletop.js";
 
 export type CultistSimulatorMixin = CSTabletopMixin & SHAPI;
 
-export const CultistSimulatorMixin = (superclass: ConstructorOf<SHAPI>) =>
-  CSTabletopMixin(superclass);
+export const CultistSimulatorMixin = <T extends ConstructorOf<SHAPI>>(
+  superclass: T
+) => CSTabletopMixin(superclass);
