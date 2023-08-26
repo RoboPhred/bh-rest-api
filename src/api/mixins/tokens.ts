@@ -1,6 +1,5 @@
-import { GameEventTiming } from "../../types/events.js";
-import { GameSpeed } from "../../types/time.js";
 import { Token } from "../../types/tokens.js";
+
 import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";
@@ -37,12 +36,17 @@ export function TokensSHMixin<C extends ConstructorOf<RESTApiBase>>(
   };
 }
 
-function nullableAsArray<T>(x: T | readonly T[] | null | undefined): T[] {
+function nullableAsArray<T>(
+  x: T | readonly T[] | null | undefined
+): readonly T[] {
   if (x === null || x === undefined) {
     return [];
   }
+
   if (Array.isArray(x)) {
     return x;
   }
-  return [x];
+
+  // I don't know why x is typed so weirdly here.
+  return [x as any];
 }
