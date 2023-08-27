@@ -12,7 +12,7 @@ export interface TokenBase {
 
 export type WritableTokenBase = Partial<Pick<Token, "spherePath">>;
 
-export type Token = ElementStack | Situation | TerrainFeature;
+export type Token = ElementStack | Situation | ConnectedTerrain;
 
 export type CreatableToken = CreatableElementStack | CreatableSituation;
 
@@ -96,7 +96,8 @@ export interface TokenExecutionResult {
 }
 
 export interface TerrainFeature extends TokenBase {
-  payloadType: "TerrainFeature";
+  label: string;
+  description: string;
   sealed: boolean;
   shrouded: boolean;
 }
@@ -104,3 +105,7 @@ export interface TerrainFeature extends TokenBase {
 export type WritableTerrainFeature = Partial<
   Pick<TerrainFeature, "sealed" | "shrouded">
 >;
+
+export interface ConnectedTerrain extends TerrainFeature {
+  payloadType: "ConnectedTerrain";
+}
