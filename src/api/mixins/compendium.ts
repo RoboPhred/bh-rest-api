@@ -24,7 +24,7 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
         qs.set("isHidden", String(query.hidden));
       }
 
-      return this.request("GET", `/compendium/elements?${qs}`, { query });
+      return this.request("GET", `/compendium/elements?${qs}`);
     }
 
     getAspects(query?: GetElementsQueryOptions): Promise<Element[]> {
@@ -34,7 +34,7 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
         qs.set("isHidden", String(query.hidden));
       }
 
-      return this.request("GET", `/compendium/elements?${qs}`, { query });
+      return this.request("GET", `/compendium/elements?${qs}`);
     }
 
     getCards(query?: GetElementsQueryOptions): Promise<Element[]> {
@@ -44,7 +44,7 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
         qs.set("isHidden", String(query.hidden));
       }
 
-      return this.request("GET", `/compendium/elements?${qs}`, { query });
+      return this.request("GET", `/compendium/elements?${qs}`);
     }
   };
 }
