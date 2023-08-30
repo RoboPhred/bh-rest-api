@@ -1,5 +1,3 @@
-import { GameEventTiming } from "../../types/events.js";
-import { GameSpeed } from "../../types/time.js";
 import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";
