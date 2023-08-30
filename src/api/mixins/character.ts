@@ -12,7 +12,7 @@ export function CharacterSHMixin<C extends ConstructorOf<RESTApiBase>>(
 ) {
   return class extends constructor implements CharacterSHMixin {
     getUniqueManifestedElements(): Promise<string[]> {
-      return this.request("GET", `/character/manifested-elements`);
+      return this.request("GET", `/character/elements-manifested`);
     }
 
     getRecipeExecutions(): Promise<Record<string, number>> {
