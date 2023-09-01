@@ -24,5 +24,14 @@ export interface Element {
   unique: boolean;
   uniquenessGroup: string;
   verbIcon: string;
+  xtriggers: Record<string, XTrigger[]>;
   xexts: Record<string, string>;
+}
+
+export interface XTrigger {
+  id: string;
+  morpheffect: string;
+  level: number;
+  chance: number;
+  lever: string;
 }

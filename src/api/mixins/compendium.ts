@@ -1,3 +1,4 @@
+import { APIError, APINetworkError } from "../../errors.js";
 import { Element } from "../../types/entities.js";
 import { RESTApiBase } from "../RESTApiBase.js";
 
@@ -8,6 +9,7 @@ export interface GetElementsQueryOptions {
 }
 
 export interface CompendiumSHMixin {
+  getElement(id: string): Promise<Element | null>;
   getElements(query?: GetElementsQueryOptions): Promise<Element[]>;
   getAspects(query?: GetElementsQueryOptions): Promise<Element[]>;
   getCards(query?: GetElementsQueryOptions): Promise<Element[]>;
@@ -17,6 +19,17 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
   constructor: C
 ) {
   return class extends constructor implements CompendiumSHMixin {
+    async getElement(id: string): Promise<Element | null> {
+      try {
+        return await this.request("GET", `/compendium/elements/${id}`);
+      } catch (e: any) {
+        if (e instanceof APINetworkError && e.statusCode === 404) {
+          return null;
+        }
+
+        throw e;
+      }
+    }
     getElements(query?: GetElementsQueryOptions): Promise<Element[]> {
       const qs = new URLSearchParams();
 
