@@ -1,11 +1,10 @@
-import lodash from "lodash";
-
 import { Situation } from "../../../types/tokens.js";
 
 import { RESTApiBase } from "../../RESTApiBase.js";
 import { ConstructorOf } from "../../types-internal.js";
 
 import { FucinePathSHMixin } from "../fucine-paths.js";
+import { TokensSHMixin } from "../tokens.js";
 
 export interface BHBrancrugMixin {
   getBrancrugSituations(): Promise<Situation[]>;
@@ -13,20 +12,15 @@ export interface BHBrancrugMixin {
 }
 
 export function BHBrancrugMixin<
-  C extends ConstructorOf<FucinePathSHMixin & RESTApiBase>
+  C extends ConstructorOf<TokensSHMixin & FucinePathSHMixin & RESTApiBase>
 >(constructor: C) {
   return class extends constructor implements BHBrancrugMixin {
     async getBrancrugSituations(): Promise<Situation[]> {
-      const buildingSpheres = await this.getSpheresAtPath(`~/library!brancrug`);
-      const situationPromises = buildingSpheres.map((sphere) =>
-        this.getTokensAtPath(sphere.path, {
-          payloadType: "WorkstationSituation",
-        })
-      );
-
-      const situationsDeep = await Promise.all(situationPromises);
-
-      return lodash.flatten(situationsDeep) as Situation[];
+      const tokens = await this.getAllTokens({
+        spherePrefix: "~/library!brancrug",
+        payloadType: "WorkstationSituation",
+      });
+      return tokens as Situation[];
     }
 
     async getBrancrugSituation(

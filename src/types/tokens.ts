@@ -62,6 +62,7 @@ export interface Situation extends TokenBase {
   verbId: string;
   spontaneous: boolean;
   timeRemaining: number;
+  aspects: Aspects;
   recipeId: string | null;
   recipeLabel: string | null;
   currentRecipeId: string | null;
