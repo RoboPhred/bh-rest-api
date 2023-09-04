@@ -1,5 +1,6 @@
-import { APIError, APINetworkError } from "../../errors.js";
-import { Element } from "../../types/entities.js";
+import { APINetworkError } from "../../errors.js";
+import { Element, Recipe, Verb } from "../../types/entities.js";
+
 import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";
@@ -13,6 +14,12 @@ export interface CompendiumSHMixin {
   getElements(query?: GetElementsQueryOptions): Promise<Element[]>;
   getAspects(query?: GetElementsQueryOptions): Promise<Element[]>;
   getCards(query?: GetElementsQueryOptions): Promise<Element[]>;
+
+  getRecipes(): Promise<Recipe[]>;
+  getRecipeById(recipeId: string): Promise<Recipe | null>;
+
+  getVerbs(): Promise<Verb[]>;
+  getVerbById(verbId: string): Promise<Verb | null>;
 }
 
 export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
@@ -30,6 +37,7 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
         throw e;
       }
     }
+
     getElements(query?: GetElementsQueryOptions): Promise<Element[]> {
       const qs = new URLSearchParams();
 
@@ -58,6 +66,38 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
       }
 
       return this.request("GET", `/compendium/elements?${qs}`);
+    }
+
+    getRecipes(): Promise<Recipe[]> {
+      return this.request("GET", `/compendium/recipes`);
+    }
+
+    getRecipeById(recipeId: string): Promise<Recipe | null> {
+      return this.request("GET", `/compendium/recipes/${recipeId}`).catch(
+        (e: any) => {
+          if (e instanceof APINetworkError && e.statusCode === 404) {
+            return null;
+          }
+
+          throw e;
+        }
+      );
+    }
+
+    getVerbs(): Promise<Verb[]> {
+      return this.request("GET", `/compendium/verbs`);
+    }
+
+    getVerbById(verbId: string): Promise<Verb | null> {
+      return this.request("GET", `/compendium/verbs/${verbId}`).catch(
+        (e: any) => {
+          if (e instanceof APINetworkError && e.statusCode === 404) {
+            return null;
+          }
+
+          throw e;
+        }
+      );
     }
   };
 }

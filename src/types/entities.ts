@@ -28,6 +28,41 @@ export interface Element {
   xexts: Record<string, string>;
 }
 
+export interface Recipe {
+  id: string;
+  label: string;
+  description: string;
+  aspects: Aspects;
+  startLabel: string;
+  startDescription: string;
+  preSlots: SphereSpec[];
+  slots: SphereSpec[];
+}
+
+export interface Verb {
+  id: string;
+  label: string;
+  description: string;
+  icon: string;
+  category: string;
+  multiple: boolean;
+  spontaneous: boolean;
+  thresholds: SphereSpec[];
+  aspets: Aspects;
+  hints: string[];
+  xtriggers: Record<string, XTrigger[]>;
+}
+
+export interface SphereSpec {
+  id: string;
+  label: string;
+  description: string;
+  greedy: boolean;
+  essential: Aspects;
+  required: Aspects;
+  forbidden: Aspects;
+}
+
 export interface XTrigger {
   id: string;
   morpheffect: string;
