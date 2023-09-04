@@ -12,7 +12,11 @@ export interface TokenBase {
 
 export type WritableTokenBase = Partial<Pick<Token, "spherePath">>;
 
-export type Token = ElementStack | Situation | ConnectedTerrain;
+export type Token =
+  | ElementStack
+  | Situation
+  | WorkstationSituation
+  | ConnectedTerrain;
 
 export type CreatableToken = CreatableElementStack | CreatableSituation;
 
@@ -63,6 +67,7 @@ export interface Situation extends TokenBase {
   spontaneous: boolean;
   timeRemaining: number;
   aspects: Aspects;
+  hints: string[];
   recipeId: string | null;
   recipeLabel: string | null;
   currentRecipeId: string | null;
@@ -72,6 +77,10 @@ export interface Situation extends TokenBase {
   label: string;
   description: string;
   open: boolean;
+}
+
+export interface WorkstationSituation extends Omit<Situation, "payloadType"> {
+  payloadType: "WorkstationSituation";
 }
 
 export type WritableSituation = Partial<

@@ -8,7 +8,6 @@ import { TokensSHMixin } from "../tokens.js";
 
 export interface BHWorkstationsMixin {
   getAllWorkstations(): Promise<Situation[]>;
-  // getWorkstation(verbId: string): Promise<Situation | null>;
 }
 
 export function BHWorkstationsMixin<
