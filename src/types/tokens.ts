@@ -1,4 +1,5 @@
 import { Aspects } from "./aspects";
+import { SphereSpec } from "./entities";
 
 export interface TokenBase {
   id: string;
@@ -68,6 +69,7 @@ export interface Situation extends TokenBase {
   timeRemaining: number;
   aspects: Aspects;
   hints: string[];
+  thresholds: SphereSpec[];
   recipeId: string | null;
   recipeLabel: string | null;
   currentRecipeId: string | null;
