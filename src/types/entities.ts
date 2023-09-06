@@ -37,6 +37,10 @@ export interface Recipe {
   startDescription: string;
   preSlots: SphereSpec[];
   slots: SphereSpec[];
+  warmup: number;
+  requirements: Record<string, string>;
+  extantRequirements: Record<string, string>;
+  effects: Record<string, string>;
 }
 
 export interface Verb {
