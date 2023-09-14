@@ -2,15 +2,15 @@ import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";
 
-export interface CharacterSHMixin {
+export interface SharedCharacterSHMixin {
   getUniqueManifestedElements(): Promise<string[]>;
   getRecipeExecutions(): Promise<Record<string, number>>;
 }
 
-export function CharacterSHMixin<C extends ConstructorOf<RESTApiBase>>(
+export function SharedCharacterSHMixin<C extends ConstructorOf<RESTApiBase>>(
   constructor: C
 ) {
-  return class extends constructor implements CharacterSHMixin {
+  return class extends constructor implements SharedCharacterSHMixin {
     getUniqueManifestedElements(): Promise<string[]> {
       return this.request("GET", `/character/elements-manifested`);
     }

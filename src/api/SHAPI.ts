@@ -1,4 +1,4 @@
-import { CharacterSHMixin } from "./mixins/character.js";
+import { SharedCharacterSHMixin } from "./mixins/character.js";
 import { FucinePathSHMixin } from "./mixins/fucine-paths.js";
 import { GameStateSHMixin } from "./mixins/game-state.js";
 import { SituationsSHMixin } from "./mixins/situations.js";
@@ -14,14 +14,14 @@ export type SHAPI = SituationsSHMixin &
   TimeSHMixin &
   TokensSHMixin &
   CompendiumSHMixin &
-  CharacterSHMixin &
+  SharedCharacterSHMixin &
   RESTApiBase;
 
 const SHAPI = SituationsSHMixin(
   FucinePathSHMixin(
     GameStateSHMixin(
       TimeSHMixin(
-        TokensSHMixin(CompendiumSHMixin(CharacterSHMixin(RESTApiBase)))
+        TokensSHMixin(CompendiumSHMixin(SharedCharacterSHMixin(RESTApiBase)))
       )
     )
   )
