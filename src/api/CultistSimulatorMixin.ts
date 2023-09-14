@@ -5,7 +5,9 @@ import { ConstructorOf } from "./types-internal.js";
 import { CSTabletopMixin } from "./mixins/cs/tabletop.js";
 import { CSCharacterSHMixin } from "./mixins/cs/character.js";
 
-export type CultistSimulatorMixin = CSTabletopMixin & SHAPI;
+export type CultistSimulatorMixin = CSTabletopMixin &
+  CSCharacterSHMixin &
+  SHAPI;
 
 export const CultistSimulatorMixin = <T extends ConstructorOf<SHAPI>>(
   superclass: T
