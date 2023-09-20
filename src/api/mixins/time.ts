@@ -5,6 +5,7 @@ import { RESTApiBase } from "../RESTApiBase.js";
 import { ConstructorOf } from "../types-internal.js";
 
 export interface TimeSHMixin {
+  getSpeed(): Promise<GameSpeed>;
   setSpeed(speed: GameSpeed): Promise<void>;
   passTime(seconds: number): Promise<void>;
   getNextEvents(): Promise<GameEventTiming>;
