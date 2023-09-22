@@ -1,6 +1,6 @@
 # SecretHistories API NodeJS adapter
 
-![npm](https://img.shields.io/npm/v/secrethistories-api)
+[secrethistories-api](https://www.npmjs.com/package/secrethistories-api) ![npm](https://img.shields.io/npm/v/secrethistories-api)
 
 A nodejs library for interfacing with the Secret Histories game engine, developed by Weather Factory.
 
