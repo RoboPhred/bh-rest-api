@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/RoboPhred/bh-rest-api.git"
+    "url": "git+ssh://git@github.com/SunsetFi/secrethistories-api.git"
   },
   "author": "RoboPhred",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RoboPhred/bh-rest-api/issues"
+    "url": "https://github.com/SunsetFi/secrethistories-api/issues"
   },
-  "homepage": "https://github.com/RoboPhred/bh-rest-api#readme",
+  "homepage": "https://github.com/SunsetFi/secrethistories-api#readme",
   "devDependencies": {
     "@types/lodash": "^4.14.197",
     "@types/node": "^20.5.0",
