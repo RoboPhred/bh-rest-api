@@ -7,18 +7,22 @@ import { BHFixedVerbsMixin } from "./mixins/bh/fixed-verbs.js";
 import { BHHandMixin } from "./mixins/bh/hand.js";
 import { BHWorkstationsMixin } from "./mixins/bh/workstations.js";
 import { BHCharacterSHMixin } from "./mixins/bh/character.js";
+import { SharedCharacterSHMixin } from "./mixins/character.js";
 
 export type BookOfHoursMixin = BHFixedVerbsMixin &
   BHHandMixin &
   BHBrancrugMixin &
   BHWorkstationsMixin &
-  BHCharacterSHMixin;
+  BHCharacterSHMixin &
+  SharedCharacterSHMixin;
 
 export const BookOfHoursMixin = <T extends ConstructorOf<SHAPI>>(
   superclass: T
 ) =>
   BHCharacterSHMixin(
-    BHHandMixin(
-      BHFixedVerbsMixin(BHBrancrugMixin(BHWorkstationsMixin(superclass)))
+    SharedCharacterSHMixin(
+      BHHandMixin(
+        BHFixedVerbsMixin(BHBrancrugMixin(BHWorkstationsMixin(superclass)))
+      )
     )
   );
