@@ -30,7 +30,7 @@ export function SharedCharacterSHMixin<C extends ConstructorOf<RESTApiBase>>(
         timer = setTimeout(async () => {
           const { hash, legacy } = await this.request(
             "GET",
-            `/character/legacy/poll`
+            `/character/legacy/poll?previousHash=${lastHash ?? ""}`
           );
           if (!isRunning) {
             return;
@@ -45,6 +45,8 @@ export function SharedCharacterSHMixin<C extends ConstructorOf<RESTApiBase>>(
           }
         }, 1);
       };
+
+      poll();
 
       return () => {
         isRunning = false;
