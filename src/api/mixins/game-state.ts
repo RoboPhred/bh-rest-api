@@ -34,8 +34,8 @@ export function GameStateSHMixin<C extends ConstructorOf<RESTApiBase>>(
       }
 
       return {
-        id: legacyId,
-        label: legacyLabel ?? legacyId,
+        legacyId: legacyId,
+        legacyLabel: legacyLabel ?? legacyId,
       };
     }
 
