@@ -1,11 +1,9 @@
-import lodash from "lodash";
-
 import { ElementStack } from "../../../types/tokens.js";
 
 import { RESTApiBase } from "../../RESTApiBase.js";
 import { ConstructorOf } from "../../types-internal.js";
 
-import { FucinePathSHMixin } from "../fucine-paths.js";
+import { TokensSHMixin } from "../tokens.js";
 
 const playerSpherePaths = [
   "~/portage1",
@@ -24,15 +22,14 @@ export interface BHHandMixin {
 }
 
 export function BHHandMixin<
-  C extends ConstructorOf<FucinePathSHMixin & RESTApiBase>
+  C extends ConstructorOf<TokensSHMixin & RESTApiBase>
 >(constructor: C) {
   return class extends constructor implements BHHandMixin {
     async getElementStacksInHand(): Promise<ElementStack[]> {
-      const fetches = playerSpherePaths.map((path) =>
-        this.getElementStacksAtPath(path)
-      );
-      const results = await Promise.all(fetches);
-      return lodash.flatten(results);
+      return this.getAllTokens({
+        payloadType: "ElementStack",
+        spherePrefix: playerSpherePaths,
+      }) as Promise<ElementStack[]>;
     }
   };
 }
