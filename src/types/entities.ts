@@ -30,6 +30,7 @@ export interface Element {
 
 export interface Recipe {
   id: string;
+  actionId: string;
   label: string;
   description: string;
   aspects: Aspects;
