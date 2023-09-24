@@ -1,6 +1,6 @@
 {
   "name": "secrethistories-api",
-  "version": "1.15.4",
+  "version": "1.16.0",
   "description": "API access to games made in the Secret Histories engine.  Notably, Cultist Simulator and Book of Hours.",
   "type": "module",
   "main": "dist/index.js",
