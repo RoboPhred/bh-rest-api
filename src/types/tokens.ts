@@ -78,6 +78,8 @@ export interface Situation extends TokenBase {
   icon: string;
   label: string;
   description: string;
+  verbLabel: string;
+  verbDescription: string;
   open: boolean;
 }
 
