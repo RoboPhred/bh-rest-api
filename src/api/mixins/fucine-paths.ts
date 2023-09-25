@@ -24,6 +24,7 @@ export interface FucinePathSHMixin {
   getTokenAtPath(fucinePath: string): Promise<Token>;
   updateTokenAtPath(fucinePath: string, token: WritableToken): Promise<void>;
   deleteTokenAtPath(fucinePath: string): Promise<void>;
+  evictTokenAtPath(fucinePath: string): Promise<void>;
   focusTokenAtPath(fucinePath: string): Promise<void>;
   openTokenAtPath(fucinePath: string): Promise<void>;
   executeTokenAtPath(fucinePath: string): Promise<TokenExecutionResult>;
@@ -70,6 +71,10 @@ export function FucinePathSHMixin<C extends ConstructorOf<RESTApiBase>>(
 
     deleteTokenAtPath(fucinePath: string): Promise<void> {
       return this.request("DELETE", `by-path/${fucinePath}`);
+    }
+
+    evictTokenAtPath(fucinePath: string): Promise<void> {
+      return this.request("POST", `by-path/${fucinePath}/evict`);
     }
 
     focusTokenAtPath(fucinePath: string): Promise<void> {
