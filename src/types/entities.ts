@@ -3,6 +3,7 @@ import { Aspects } from "./aspects";
 export interface Element {
   id: string;
   aspects: Aspects;
+  slots: SphereSpec[];
   burnTo: string;
   comments: string;
   commute: string[];
@@ -62,6 +63,7 @@ export interface SphereSpec {
   id: string;
   label: string;
   description: string;
+  actionId: string;
   greedy: boolean;
   essential: Aspects;
   required: Aspects;
