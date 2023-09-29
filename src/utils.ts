@@ -25,17 +25,17 @@ export function aspectsMatch(value: Aspects, match: Aspects, exact = false) {
 }
 
 export function aspectsMatchExpression(
-  value: AspectsExpression,
-  match: Aspects
+  value: Aspects,
+  match: AspectsExpression
 ) {
   for (const aspectName of Object.keys(value)) {
     const matchAspectExpression = match[aspectName] ?? 0;
     let matchAspectAmount = Number(matchAspectExpression);
     if (Number.isNaN(matchAspectAmount)) {
-      matchAspectAmount = match[matchAspectExpression] ?? 0;
+      matchAspectAmount = value[matchAspectExpression] ?? 0;
     }
 
-    const valueAspectAmount = match[aspectName];
+    const valueAspectAmount = value[aspectName];
 
     if (matchAspectAmount == 0) {
       if (matchAspectAmount !== valueAspectAmount) {
