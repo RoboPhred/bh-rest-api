@@ -35,18 +35,16 @@ export function aspectsMatchExpression(
       aspectAmount = target[aspectExpression] ?? 0;
     }
 
-    const targetAspectAmount = target[aspectName];
-
-    if (targetAspectAmount == 0) {
-      if (targetAspectAmount !== aspectAmount) {
+    if (aspectAmount == 0) {
+      if (aspectAmount !== aspectAmount) {
         return false;
       }
-    } else if (targetAspectAmount > 0) {
-      if (aspectAmount < targetAspectAmount) {
+    } else if (aspectAmount > 0) {
+      if (aspectAmount < aspectAmount) {
         return false;
       }
-    } else if (targetAspectAmount < 0) {
-      if (aspectAmount >= -targetAspectAmount) {
+    } else if (aspectAmount < 0) {
+      if (aspectAmount >= -aspectAmount) {
         return false;
       }
     }
