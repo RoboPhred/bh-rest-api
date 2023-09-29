@@ -1,7 +1,7 @@
 import { Aspects } from "./types";
 
 export function aspectsMatch(source: Aspects, target: Aspects, exact = false) {
-  for (const aspectName of Object.keys(target)) {
+  for (const aspectName of Object.keys(source)) {
     const aspectAmount = source[aspectName] ?? 0;
 
     const targetAspectAmount = target[aspectName];
