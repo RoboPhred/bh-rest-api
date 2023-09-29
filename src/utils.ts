@@ -28,7 +28,7 @@ export function aspectsMatchExpression(
   value: Aspects,
   match: AspectsExpression
 ) {
-  for (const aspectName of Object.keys(value)) {
+  for (const aspectName of Object.keys(match)) {
     const matchAspectExpression = match[aspectName] ?? 0;
     let matchAspectAmount = Number(matchAspectExpression);
     if (Number.isNaN(matchAspectAmount)) {
