@@ -1,4 +1,4 @@
-import { Aspects } from "./aspects";
+import { Aspects, AspectsExpression } from "./aspects";
 
 export interface Element {
   id: string;
@@ -40,8 +40,8 @@ export interface Recipe {
   preSlots: SphereSpec[];
   slots: SphereSpec[];
   warmup: number;
-  requirements: Record<string, string>;
-  extantRequirements: Record<string, string>;
+  requirements: AspectsExpression;
+  extantRequirements: AspectsExpression;
   effects: Record<string, string>;
 }
 
@@ -64,7 +64,7 @@ export interface SphereSpec {
   label: string;
   description: string;
   actionId: string;
-  ifAspectsPresent: Aspects;
+  ifAspectsPresent: AspectsExpression;
   greedy: boolean;
   essential: Aspects;
   required: Aspects;
