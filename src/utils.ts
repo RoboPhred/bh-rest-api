@@ -1,21 +1,21 @@
 import { Aspects, AspectsExpression } from "./types";
 
-export function aspectsMatch(source: Aspects, target: Aspects, exact = false) {
-  for (const aspectName of Object.keys(source)) {
-    const aspectAmount = source[aspectName] ?? 0;
+export function aspectsMatch(value: Aspects, match: Aspects, exact = false) {
+  for (const aspectName of Object.keys(match)) {
+    const aspectAmount = value[aspectName] ?? 0;
 
-    const targetAspectAmount = target[aspectName];
+    const matchAspectAmount = match[aspectName];
 
-    if (exact || targetAspectAmount == 0) {
-      if (targetAspectAmount !== aspectAmount) {
+    if (exact || matchAspectAmount == 0) {
+      if (matchAspectAmount !== aspectAmount) {
         return false;
       }
-    } else if (targetAspectAmount > 0) {
-      if (aspectAmount < targetAspectAmount) {
+    } else if (matchAspectAmount > 0) {
+      if (aspectAmount < matchAspectAmount) {
         return false;
       }
-    } else if (targetAspectAmount < 0) {
-      if (aspectAmount >= -targetAspectAmount) {
+    } else if (matchAspectAmount < 0) {
+      if (aspectAmount >= -matchAspectAmount) {
         return false;
       }
     }
@@ -25,26 +25,28 @@ export function aspectsMatch(source: Aspects, target: Aspects, exact = false) {
 }
 
 export function aspectsMatchExpression(
-  source: AspectsExpression,
-  target: Aspects
+  value: AspectsExpression,
+  match: Aspects
 ) {
-  for (const aspectName of Object.keys(source)) {
-    const aspectExpression = source[aspectName] ?? 0;
-    let aspectAmount = Number(aspectExpression);
-    if (Number.isNaN(aspectAmount)) {
-      aspectAmount = target[aspectExpression] ?? 0;
+  for (const aspectName of Object.keys(value)) {
+    const matchAspectExpression = match[aspectName] ?? 0;
+    let matchAspectAmount = Number(matchAspectExpression);
+    if (Number.isNaN(matchAspectAmount)) {
+      matchAspectAmount = match[matchAspectExpression] ?? 0;
     }
 
-    if (aspectAmount == 0) {
-      if (aspectAmount !== aspectAmount) {
+    const valueAspectAmount = match[aspectName];
+
+    if (matchAspectAmount == 0) {
+      if (matchAspectAmount !== valueAspectAmount) {
         return false;
       }
-    } else if (aspectAmount > 0) {
-      if (aspectAmount < aspectAmount) {
+    } else if (matchAspectAmount > 0) {
+      if (valueAspectAmount < matchAspectAmount) {
         return false;
       }
-    } else if (aspectAmount < 0) {
-      if (aspectAmount >= -aspectAmount) {
+    } else if (matchAspectAmount < 0) {
+      if (valueAspectAmount >= -matchAspectAmount) {
         return false;
       }
     }
