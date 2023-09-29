@@ -37,3 +37,12 @@ export function combineAspects(a: Aspects, b: Aspects): Aspects {
 
   return result;
 }
+
+export function actionIdMatches(actionId: string, verbId: string) {
+  if (!actionId || actionId === "") {
+    return true;
+  }
+
+  const comparison = new RegExp(`^${actionId.replace("*", "(?:.*)")}$`);
+  return comparison.test(verbId);
+}
