@@ -1,4 +1,4 @@
-import { Aspects } from "./types";
+import { Aspects, AspectsExpression } from "./types";
 
 export function aspectsMatch(source: Aspects, target: Aspects, exact = false) {
   for (const aspectName of Object.keys(source)) {
@@ -7,6 +7,37 @@ export function aspectsMatch(source: Aspects, target: Aspects, exact = false) {
     const targetAspectAmount = target[aspectName];
 
     if (exact || targetAspectAmount == 0) {
+      if (targetAspectAmount !== aspectAmount) {
+        return false;
+      }
+    } else if (targetAspectAmount > 0) {
+      if (aspectAmount < targetAspectAmount) {
+        return false;
+      }
+    } else if (targetAspectAmount < 0) {
+      if (aspectAmount >= -targetAspectAmount) {
+        return false;
+      }
+    }
+  }
+
+  return true;
+}
+
+export function aspectsMatchExpression(
+  source: AspectsExpression,
+  target: Aspects
+) {
+  for (const aspectName of Object.keys(source)) {
+    const aspectExpression = source[aspectName] ?? 0;
+    let aspectAmount = Number(aspectExpression);
+    if (Number.isNaN(aspectAmount)) {
+      aspectAmount = target[aspectExpression] ?? 0;
+    }
+
+    const targetAspectAmount = target[aspectName];
+
+    if (targetAspectAmount == 0) {
       if (targetAspectAmount !== aspectAmount) {
         return false;
       }
