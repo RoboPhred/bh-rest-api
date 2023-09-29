@@ -64,6 +64,7 @@ export interface SphereSpec {
   label: string;
   description: string;
   actionId: string;
+  ifAspectsPresent: Aspects;
   greedy: boolean;
   essential: Aspects;
   required: Aspects;
