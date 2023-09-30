@@ -35,7 +35,7 @@ export function aspectsMatchExpression(
       matchAspectAmount = value[matchAspectExpression] ?? 0;
     }
 
-    const valueAspectAmount = value[aspectName];
+    const valueAspectAmount = value[aspectName] ?? 0;
 
     if (matchAspectAmount == 0) {
       if (matchAspectAmount !== valueAspectAmount) {
