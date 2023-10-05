@@ -1,14 +1,20 @@
 import { Aspects } from "./aspects";
 import { SphereSpec } from "./entities";
 
+export type SpaceOccupation =
+  | "Terrain"
+  | "PhysicalObject"
+  | "Someone"
+  | "Intangible"
+  | "Meta"
+  | "Unknown";
+
 export interface TokenBase {
   id: string;
-
   path: string;
-
   spherePath: string;
-
   payloadType: string;
+  occupiesSpaceAs: SpaceOccupation;
 }
 
 export type WritableTokenBase = Partial<Pick<Token, "spherePath">>;

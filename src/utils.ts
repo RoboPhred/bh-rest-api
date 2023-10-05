@@ -4,7 +4,7 @@ export function aspectsMatch(value: Aspects, match: Aspects, exact = false) {
   for (const aspectName of Object.keys(match)) {
     const aspectAmount = value[aspectName] ?? 0;
 
-    const matchAspectAmount = match[aspectName];
+    const matchAspectAmount = match[aspectName] ?? 0;
 
     if (exact || matchAspectAmount == 0) {
       if (matchAspectAmount !== aspectAmount) {
