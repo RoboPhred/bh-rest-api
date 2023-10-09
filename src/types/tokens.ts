@@ -129,6 +129,9 @@ export type WritableTerrainFeature = Partial<
 
 export interface ConnectedTerrain extends TerrainFeature {
   payloadType: "ConnectedTerrain";
+  unlockRequirements: Record<string, number>;
+  unlockForbiddens: Record<string, number>;
+  unlockEssentials: Record<string, number>;
 }
 
 export function isElementStack(x: Token): x is ElementStack {
