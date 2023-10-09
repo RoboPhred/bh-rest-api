@@ -120,6 +120,7 @@ export interface TerrainFeature extends TokenBase {
   description: string;
   sealed: boolean;
   shrouded: boolean;
+  infoRecipeId: string;
 }
 
 export type WritableTerrainFeature = Partial<
