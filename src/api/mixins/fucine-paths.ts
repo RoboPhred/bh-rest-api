@@ -99,6 +99,12 @@ export function FucinePathSHMixin<C extends ConstructorOf<RESTApiBase>>(
       });
     }
 
+    setRecipeAtPath(fucinePath: string, recipeId: string): Promise<void> {
+      return this.request("POST", `by-path/${fucinePath}/recipe`, {
+        recipeId,
+      });
+    }
+
     async getSpheresAtPath(fucinePath: string): Promise<Sphere[]> {
       const spheres = await this.request(
         "GET",

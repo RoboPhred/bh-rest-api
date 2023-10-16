@@ -69,7 +69,7 @@ export type SituationState =
   | "Starting";
 
 export interface Situation extends TokenBase {
-  payloadType: "Situation";
+  payloadType: "Situation" | "WorkstationSituation" | "RoomWorkSituation";
   verbId: string;
   spontaneous: boolean;
   timeRemaining: number;
@@ -138,8 +138,13 @@ export function isElementStack(x: Token): x is ElementStack {
   return x.payloadType === "ElementStack";
 }
 
+const situationPayloadTypes = [
+  "Situation",
+  "WorkstationSituation",
+  "RoomWorkSituation",
+];
 export function isSituation(x: Token): x is Situation {
-  return x.payloadType === "Situation";
+  return situationPayloadTypes.includes(x.payloadType);
 }
 
 export function isConnectedTerrain(x: Token): x is ConnectedTerrain {
