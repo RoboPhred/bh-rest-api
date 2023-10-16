@@ -27,6 +27,7 @@ export interface FucinePathSHMixin {
   evictTokenAtPath(fucinePath: string): Promise<void>;
   focusTokenAtPath(fucinePath: string): Promise<void>;
   openTokenAtPath(fucinePath: string): Promise<void>;
+  setRecipeAtPath(fucinePath: string, recipeId: string): Promise<void>;
   executeTokenAtPath(fucinePath: string): Promise<TokenExecutionResult>;
   concludeTokenAtPath(fucinePath: string): Promise<Token[]>;
   unlockTokenAtPath(fucinePath: string): Promise<void>;
