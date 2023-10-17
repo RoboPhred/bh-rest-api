@@ -43,6 +43,7 @@ export interface ElementStack extends TokenBase {
   shrouded: boolean;
   label: string;
   description: string;
+  illuminations: Record<string, string>;
   icon: string;
   uniquenessGroup: string | null;
   decays: boolean;
