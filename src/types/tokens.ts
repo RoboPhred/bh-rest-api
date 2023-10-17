@@ -13,6 +13,7 @@ export interface TokenBase {
   id: string;
   path: string;
   spherePath: string;
+  inExteriorSphere: boolean;
   payloadType: string;
   occupiesSpaceAs: SpaceOccupation;
 }
