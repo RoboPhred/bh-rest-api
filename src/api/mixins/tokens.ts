@@ -1,4 +1,5 @@
-import { Token } from "../../types/tokens.js";
+import { APINetworkError } from "../../errors.js";
+import { Token, WritableToken } from "../../types/tokens.js";
 
 import { RESTApiBase } from "../RESTApiBase.js";
 
@@ -14,6 +15,8 @@ export interface GetAllTokensQuery {
 }
 export interface TokensSHMixin {
   getAllTokens(query?: GetAllTokensQuery): Promise<Token[]>;
+  getTokenById(id: string): Promise<Token | null>;
+  updateTokenById(id: string, token: WritableToken): Promise<Token>;
 }
 
 export function TokensSHMixin<C extends ConstructorOf<RESTApiBase>>(
@@ -48,6 +51,24 @@ export function TokensSHMixin<C extends ConstructorOf<RESTApiBase>>(
       }
 
       return this.request("GET", `/tokens?${qs}`);
+    }
+
+    async getTokenById(id: string): Promise<Token | null> {
+      try {
+        return await this.request("GET", `/tokens/${id}`);
+      } catch (e: any) {
+        if (e instanceof APINetworkError) {
+          if (e.statusCode === 404) {
+            return null;
+          }
+        }
+
+        throw e;
+      }
+    }
+
+    updateTokenById(id: string, token: WritableToken): Promise<Token> {
+      return this.request("PATCH", `/tokens/${id}`, token);
     }
   };
 }
