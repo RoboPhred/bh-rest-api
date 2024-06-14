@@ -96,7 +96,7 @@ export interface WorkstationSituation extends Omit<Situation, "payloadType"> {
 }
 
 export type WritableSituation = Partial<
-  Pick<Situation, "spherePath" | "recipeId" | "open">
+  Pick<Situation, "spherePath" | "recipeId" | "currentRecipeId" | "open">
 >;
 
 export type CreatableSituation =
