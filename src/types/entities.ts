@@ -34,6 +34,7 @@ export interface Recipe {
   actionId: string;
   label: string;
   description: string;
+  craftable: boolean;
   aspects: Aspects;
   startLabel: string;
   startDescription: string;

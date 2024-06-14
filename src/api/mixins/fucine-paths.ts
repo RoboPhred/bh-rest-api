@@ -28,6 +28,7 @@ export interface FucinePathSHMixin {
   focusTokenAtPath(fucinePath: string): Promise<void>;
   openTokenAtPath(fucinePath: string): Promise<void>;
   setRecipeAtPath(fucinePath: string, recipeId: string): Promise<void>;
+  setCurrentRecipeAtPath(fucinePath: string, recipeId: string): Promise<void>;
   executeTokenAtPath(fucinePath: string): Promise<TokenExecutionResult>;
   concludeTokenAtPath(fucinePath: string): Promise<Token[]>;
   unlockTokenAtPath(fucinePath: string): Promise<void>;
@@ -101,6 +102,15 @@ export function FucinePathSHMixin<C extends ConstructorOf<RESTApiBase>>(
     }
 
     setRecipeAtPath(fucinePath: string, recipeId: string): Promise<void> {
+      return this.request("POST", `by-path/${fucinePath}/recipe`, {
+        recipeId,
+      });
+    }
+
+    setCurrentRecipeAtPath(
+      fucinePath: string,
+      recipeId: string
+    ): Promise<void> {
       return this.request("POST", `by-path/${fucinePath}/recipe`, {
         recipeId,
       });
