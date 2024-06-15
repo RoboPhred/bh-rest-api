@@ -77,3 +77,21 @@ export function actionIdMatches(actionId: string, verbId: string) {
   const comparison = new RegExp(`^${actionId.replace("*", "(?:.*)")}$`);
   return comparison.test(verbId);
 }
+
+const pathSplit = /[\/\!]/;
+export function tokenPathContainsChild(parent: string, child: string) {
+  const parentParts = parent.split(pathSplit);
+  const childParts = child.split(pathSplit);
+
+  if (childParts.length < parentParts.length) {
+    return false;
+  }
+
+  for (let i = 0; i < parentParts.length; i++) {
+    if (parentParts[i] !== childParts[i]) {
+      return false;
+    }
+  }
+
+  return true;
+}
