@@ -1,21 +1,66 @@
 import { APINetworkError } from "../../errors.js";
-import { Token, WritableToken } from "../../types/tokens.js";
+import { PayloadType, Token, WritableToken } from "../../types/tokens.js";
 
 import { RESTApiBase } from "../RESTApiBase.js";
 
 import { ConstructorOf } from "../types-internal.js";
 
 export interface GetAllTokensQuery {
+  /**
+   * Filter by sphere fucine path prefix.
+   * @deprecated Use `fucinePath` instead.
+   */
   spherePrefix?: string | readonly string[];
-  payloadType?: string | readonly string[];
+
+  /**
+   * Filter by token fucine path.
+   */
+  fucinePath?: string | readonly string[];
+
+  /**
+   * Filter by payload type.
+   */
+  payloadType?: PayloadType | readonly PayloadType[];
+
+  /**
+   * Filter by element ID.
+   */
   elementId?: string | readonly string[];
+
+  /**
+   * Filter by verb ID.
+   */
   verbId?: string | readonly string[];
+
+  /**
+   * Number of tokens to skip.
+   */
   skip?: number;
+
+  /**
+   * Maximum number of tokens to return.
+   */
   limit?: number;
 }
 export interface TokensSHMixin {
+  /**
+   * Get all game tokens.
+   * WARN: This is an expensive operation.  Make use of filters, skip, and take, to limit its impact.
+   * @param query Query for filtering the resulting tokens.
+   */
   getAllTokens(query?: GetAllTokensQuery): Promise<Token[]>;
+
+  /**
+   * Gets a token by its payload id.
+   * @param id The payload id.
+   */
   getTokenById(id: string): Promise<Token | null>;
+
+  /**
+   * Updates a token by its payload id.
+   * @param id The payload id of the token to update.
+   * @param token The data to write to the token.
+   */
   updateTokenById(id: string, token: WritableToken): Promise<Token>;
 }
 

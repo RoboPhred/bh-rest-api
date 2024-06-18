@@ -24,7 +24,10 @@ export type Token =
   | ElementStack
   | Situation
   | WorkstationSituation
+  | TerrainFeature
   | ConnectedTerrain;
+
+export type PayloadType = Token["payloadType"];
 
 export type CreatableToken = CreatableElementStack | CreatableSituation;
 
@@ -117,7 +120,7 @@ export interface TokenExecutionResult {
   timeRemaining: number;
 }
 
-export interface TerrainFeature extends TokenBase {
+interface TerrainFeatureProperties extends TokenBase {
   label: string;
   description: string;
   sealed: boolean;
@@ -125,11 +128,15 @@ export interface TerrainFeature extends TokenBase {
   infoRecipeId: string;
 }
 
+export interface TerrainFeature extends TerrainFeatureProperties {
+  payloadType: "TerrainFeature";
+}
+
 export type WritableTerrainFeature = Partial<
   Pick<TerrainFeature, "sealed" | "shrouded">
 >;
 
-export interface ConnectedTerrain extends TerrainFeature {
+export interface ConnectedTerrain extends TerrainFeatureProperties {
   payloadType: "ConnectedTerrain";
   unlockRequirements: Record<string, number>;
   unlockForbiddens: Record<string, number>;
