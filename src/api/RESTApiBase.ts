@@ -1,6 +1,6 @@
 import fetch from "cross-fetch";
 
-import { APINetworkError } from "../errors.js";
+import { APIError, APINetworkError } from "../errors.js";
 
 export class RESTApiBase {
   readonly baseUrl: string;
@@ -36,6 +36,8 @@ export class RESTApiBase {
     if (response.headers.get("Content-Type")?.startsWith("application/json")) {
       return await response.json();
     }
+
+    throw new APIError("Request did not respond with JSON.");
   }
 }
 
