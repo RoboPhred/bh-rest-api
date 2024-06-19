@@ -35,9 +35,9 @@ export class RESTApiBase {
 
     if (response.headers.get("Content-Type")?.startsWith("application/json")) {
       return await response.json();
+    } else if (response.status != 204) {
+      throw new APIError("Request did not respond with JSON.");
     }
-
-    throw new APIError("Request did not respond with JSON.");
   }
 }
 
