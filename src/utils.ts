@@ -1,4 +1,4 @@
-import { Aspects, AspectsExpression } from "./types";
+import { Aspects, AspectsExpression, SphereSpec } from "./types";
 
 export function aspectsMatch(value: Aspects, match: Aspects, exact = false) {
   for (const aspectName of Object.keys(match)) {
@@ -49,6 +49,48 @@ export function aspectsMatchExpression(
       if (valueAspectAmount >= -matchAspectAmount) {
         return false;
       }
+    }
+  }
+
+  return true;
+}
+
+export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
+  for (const essential of Object.keys(t.essential)) {
+    const expectedValue = t.essential[essential];
+    const compareValue = aspects[essential];
+    if (compareValue === undefined) {
+      return false;
+    } else if (compareValue < expectedValue) {
+      return false;
+    }
+  }
+
+  const requiredKeys = Object.keys(t.required);
+  if (requiredKeys.length > 0) {
+    let foundRequired = false;
+    for (const required of requiredKeys) {
+      const expectedValue = t.required[required];
+      const compareValue = aspects[required];
+      if (compareValue === undefined) {
+        continue;
+      } else if (compareValue >= expectedValue) {
+        foundRequired = true;
+        break;
+      }
+    }
+    if (!foundRequired) {
+      return false;
+    }
+  }
+
+  for (const forbidden of Object.keys(t.forbidden)) {
+    const expectedValue = t.forbidden[forbidden];
+    const compareValue = aspects[forbidden];
+    if (compareValue === undefined) {
+      continue;
+    } else if (compareValue >= expectedValue) {
+      return false;
     }
   }
 
