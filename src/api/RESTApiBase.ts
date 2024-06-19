@@ -1,6 +1,6 @@
 import fetch from "cross-fetch";
 
-import { APIError, APINetworkError } from "../errors.js";
+import { APINetworkError } from "../errors.js";
 
 export class RESTApiBase {
   readonly baseUrl: string;
@@ -33,10 +33,18 @@ export class RESTApiBase {
       throw new APINetworkError(path, response.status, await response.text());
     }
 
-    if (response.headers.get("Content-Type")?.startsWith("application/json")) {
-      return await response.json();
-    } else if (response.status != 204) {
-      throw new APIError("Request did not respond with JSON.");
+    if (response.status === 200 || response.status === 201) {
+      if (
+        response.headers.get("Content-Type")?.startsWith("application/json")
+      ) {
+        return await response.json();
+      }
+    } else {
+      throw new APINetworkError(
+        path,
+        response.status,
+        `API request to ${path} resulted in unknown status code ${response.status}.`
+      );
     }
   }
 }
