@@ -25,7 +25,8 @@ export type Token =
   | Situation
   | WorkstationSituation
   | TerrainFeature
-  | ConnectedTerrain;
+  | ConnectedTerrain
+  | WisdomNodeTerrain;
 
 export type PayloadType = Token["payloadType"];
 
@@ -57,6 +58,10 @@ export interface ElementStack extends TokenBase {
 export type WritableElementStack = Partial<
   Pick<ElementStack, "spherePath" | "quantity" | "mutations" | "shrouded">
 >;
+
+export function isElementStack(x: Token): x is ElementStack {
+  return x.payloadType === "ElementStack";
+}
 
 export interface CreatableElementStack {
   elementId: string;
@@ -114,13 +119,24 @@ export type CreatableSituation =
       recipeId: string;
     };
 
+const situationPayloadTypes = [
+  "Situation",
+  "WorkstationSituation",
+  "RoomWorkSituation",
+];
+
+export function isSituation(x: Token): x is Situation {
+  return situationPayloadTypes.includes(x.payloadType);
+}
+
 export interface TokenExecutionResult {
   executedRecipeId: string;
   executedRecipeLabel: string;
   timeRemaining: number;
 }
 
-interface TerrainFeatureProperties extends TokenBase {
+export interface TerrainFeature extends TokenBase {
+  payloadType: "TerrainFeature";
   label: string;
   description: string;
   sealed: boolean;
@@ -128,34 +144,31 @@ interface TerrainFeatureProperties extends TokenBase {
   infoRecipeId: string;
 }
 
-export interface TerrainFeature extends TerrainFeatureProperties {
-  payloadType: "TerrainFeature";
-}
-
 export type WritableTerrainFeature = Partial<
   Pick<TerrainFeature, "sealed" | "shrouded">
 >;
 
-export interface ConnectedTerrain extends TerrainFeatureProperties {
+export interface ConnectedTerrain extends Omit<TerrainFeature, "payloadType"> {
   payloadType: "ConnectedTerrain";
   unlockRequirements: Record<string, number>;
   unlockForbiddens: Record<string, number>;
   unlockEssentials: Record<string, number>;
 }
 
-export function isElementStack(x: Token): x is ElementStack {
-  return x.payloadType === "ElementStack";
-}
-
-const situationPayloadTypes = [
-  "Situation",
-  "WorkstationSituation",
-  "RoomWorkSituation",
-];
-export function isSituation(x: Token): x is Situation {
-  return situationPayloadTypes.includes(x.payloadType);
-}
-
 export function isConnectedTerrain(x: Token): x is ConnectedTerrain {
   return x.payloadType === "ConnectedTerrain";
+}
+
+export interface WisdomNodeTerrain
+  extends Omit<ConnectedTerrain, "payloadType"> {
+  payloadType: "WisdomNodeTerrain";
+  wisdomSkillRequirements: Record<string, number>;
+  wisdomSkillForbiddens: Record<string, number>;
+  wisdomSkillEssentials: Record<string, number>;
+  wisdomRecipeId: string | null;
+  committed: boolean;
+}
+
+export function isWisdowNodeTerrain(x: Token): x is WisdomNodeTerrain {
+  return x.payloadType === "WisdomNodeTerrain";
 }
