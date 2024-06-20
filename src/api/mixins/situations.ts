@@ -17,9 +17,9 @@ export interface SituationsSHMixin {
   updateSituationAtPath(
     fucinePath: string,
     situation: WritableSituation
-  ): Promise<void>;
-  openSituation(situation: Situation): Promise<void>;
-  closeSituation(situation: Situation): Promise<void>;
+  ): Promise<Situation>;
+  openSituation(situation: Situation): Promise<Situation>;
+  closeSituation(situation: Situation): Promise<Situation>;
   concludeSituation(situation: Situation): Promise<ElementStack[]>;
   getSituationThresholds(situation: Situation): Promise<Sphere[]>;
   getSituationThreshold(
@@ -56,18 +56,19 @@ export function SituationsSHMixin<
       return token as Situation;
     }
 
-    updateSituationAtPath(
+    async updateSituationAtPath(
       fucinePath: string,
       situation: WritableSituation
-    ): Promise<void> {
-      return this.updateTokenAtPath(fucinePath, situation);
+    ): Promise<Situation> {
+      const result = await this.updateTokenAtPath(fucinePath, situation);
+      return result as Situation;
     }
 
-    openSituation(situation: Situation): Promise<void> {
+    openSituation(situation: Situation): Promise<Situation> {
       return this.updateSituationAtPath(situation.path, { open: true });
     }
 
-    closeSituation(situation: Situation): Promise<void> {
+    closeSituation(situation: Situation): Promise<Situation> {
       return this.updateSituationAtPath(situation.path, { open: false });
     }
 
@@ -109,7 +110,7 @@ export function SituationsSHMixin<
           `Threshold ${thresholdId} not found on situation ${situation.path}`
         );
       }
-      return this.updateTokenAtPath(element.path, {
+      await this.updateTokenAtPath(element.path, {
         spherePath: threshhold.path,
       });
     }

@@ -22,7 +22,7 @@ export interface FucinePathSHMixin {
   getRootSpheres(): Promise<Sphere[]>;
   getSphereAtPath(fucinePath: string): Promise<Sphere>;
   getTokenAtPath(fucinePath: string): Promise<Token>;
-  updateTokenAtPath(fucinePath: string, token: WritableToken): Promise<void>;
+  updateTokenAtPath(fucinePath: string, token: WritableToken): Promise<Token>;
   deleteTokenAtPath(fucinePath: string): Promise<void>;
   evictTokenAtPath(fucinePath: string): Promise<void>;
   focusTokenAtPath(fucinePath: string): Promise<void>;
@@ -67,7 +67,10 @@ export function FucinePathSHMixin<C extends ConstructorOf<RESTApiBase>>(
       return this.request("GET", `by-path/${fucinePath}`);
     }
 
-    updateTokenAtPath(fucinePath: string, token: WritableToken): Promise<void> {
+    updateTokenAtPath(
+      fucinePath: string,
+      token: WritableToken
+    ): Promise<Token> {
       return this.request("PATCH", `by-path/${fucinePath}`, token);
     }
 
