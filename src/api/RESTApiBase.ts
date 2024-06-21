@@ -39,7 +39,7 @@ export class RESTApiBase {
       ) {
         return await response.json();
       }
-    } else {
+    } else if (response.status !== 204) {
       throw new APINetworkError(
         path,
         response.status,
