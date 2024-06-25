@@ -17,7 +17,7 @@ export function BHSavesMixin<C extends ConstructorOf<RESTApiBase>>(
     }
 
     async loadSave(saveName: string): Promise<void> {
-      return this.request("POST", `/saves`, {
+      return this.request("POST", `/saves/current-save`, {
         saveName,
       });
     }
