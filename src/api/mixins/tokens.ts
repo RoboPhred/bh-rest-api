@@ -70,28 +70,39 @@ export function TokensSHMixin<C extends ConstructorOf<RESTApiBase>>(
   return class extends constructor implements TokensSHMixin {
     getAllTokens({
       spherePrefix,
+      fucinePath,
       payloadType,
       elementId,
       verbId,
       skip,
       limit,
     }: GetAllTokensQuery = {}): Promise<Token[]> {
-      const spheresAsArray = nullableAsArray(spherePrefix);
-      const payloadTypesAsArray = nullableAsArray(payloadType);
-      const elementIdsAsArray = nullableAsArray(elementId);
-      const verbIdsAsArray = nullableAsArray(verbId);
-      const qs = new URLSearchParams({
-        spherePrefix: spheresAsArray.join(","),
-        payloadType: payloadTypesAsArray.join(","),
-        elementId: elementIdsAsArray.join(","),
-        verbId: verbIdsAsArray.join(","),
-      });
+      const spheresAsArray = asArrayOrNull(spherePrefix);
+      const fucinePathsAsArray = asArrayOrNull(fucinePath);
+      const payloadTypesAsArray = asArrayOrNull(payloadType);
+      const elementIdsAsArray = asArrayOrNull(elementId);
+      const verbIdsAsArray = asArrayOrNull(verbId);
 
-      if (skip !== undefined) {
+      const qs = new URLSearchParams({});
+      if (spheresAsArray) {
+        qs.set("spherePrefix", spheresAsArray.join(","));
+      }
+      if (fucinePathsAsArray) {
+        qs.set("fucinePath", fucinePathsAsArray.join(","));
+      }
+      if (payloadTypesAsArray) {
+        qs.set("payloadType", payloadTypesAsArray.join(","));
+      }
+      if (elementIdsAsArray) {
+        qs.set("elementId", elementIdsAsArray.join(","));
+      }
+      if (verbIdsAsArray) {
+        qs.set("verbId", verbIdsAsArray.join(","));
+      }
+      if (skip != null) {
         qs.set("skip", skip.toString());
       }
-
-      if (limit !== undefined) {
+      if (limit != null) {
         qs.set("limit", limit.toString());
       }
 
@@ -118,11 +129,11 @@ export function TokensSHMixin<C extends ConstructorOf<RESTApiBase>>(
   };
 }
 
-function nullableAsArray<T>(
+function asArrayOrNull<T>(
   x: T | readonly T[] | null | undefined
-): readonly T[] {
+): readonly T[] | null {
   if (x === null || x === undefined) {
-    return [];
+    return null;
   }
 
   if (Array.isArray(x)) {
