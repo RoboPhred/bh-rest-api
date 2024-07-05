@@ -60,16 +60,19 @@ export interface Verb {
   xtriggers: Record<string, XTrigger[]>;
 }
 
-export interface SphereSpec {
+export interface AspectRequirements {
+  essential: Aspects;
+  required: Aspects;
+  forbidden: Aspects;
+}
+
+export interface SphereSpec extends AspectRequirements {
   id: string;
   label: string;
   description: string;
   actionId: string;
   ifAspectsPresent: AspectsExpression;
   greedy: boolean;
-  essential: Aspects;
-  required: Aspects;
-  forbidden: Aspects;
 }
 
 export interface XTrigger {

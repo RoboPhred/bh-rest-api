@@ -7,6 +7,7 @@ import { ConstructorOf } from "../types-internal.js";
 
 export interface GetElementsQueryOptions {
   hidden?: boolean;
+  labelContains?: string;
 }
 
 export interface CompendiumSHMixin {
@@ -44,6 +45,9 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
       if (query?.hidden !== undefined) {
         qs.set("isHidden", String(query.hidden));
       }
+      if (query?.labelContains !== undefined) {
+        qs.set("labelContains", query.labelContains);
+      }
 
       return this.request("GET", `/compendium/elements?${qs}`);
     }
@@ -54,6 +58,9 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
       if (query?.hidden !== undefined) {
         qs.set("isHidden", String(query.hidden));
       }
+      if (query?.labelContains !== undefined) {
+        qs.set("labelContains", query.labelContains);
+      }
 
       return this.request("GET", `/compendium/elements?${qs}`);
     }
@@ -63,6 +70,9 @@ export function CompendiumSHMixin<C extends ConstructorOf<RESTApiBase>>(
 
       if (query?.hidden !== undefined) {
         qs.set("isHidden", String(query.hidden));
+      }
+      if (query?.labelContains !== undefined) {
+        qs.set("labelContains", query.labelContains);
       }
 
       return this.request("GET", `/compendium/elements?${qs}`);

@@ -1,4 +1,9 @@
-import { Aspects, AspectsExpression, SphereSpec } from "./types";
+import {
+  AspectRequirements,
+  Aspects,
+  AspectsExpression,
+  SphereSpec,
+} from "./types";
 
 export function aspectsMatch(value: Aspects, match: Aspects, exact = false) {
   for (const aspectName of Object.keys(match)) {
@@ -55,10 +60,15 @@ export function aspectsMatchExpression(
   return true;
 }
 
-export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
-  for (const essential of Object.keys(t.essential)) {
-    const expectedValue = t.essential[essential];
-    const compareValue = aspects[essential];
+export function aspectsMatchRequirements(
+  aspects: Aspects,
+  requirements: AspectRequirements
+) {
+  const { essential, required, forbidden } = requirements;
+
+  for (const aspectKey of Object.keys(essential)) {
+    const expectedValue = essential[aspectKey];
+    const compareValue = aspects[aspectKey];
     if (compareValue === undefined) {
       return false;
     } else if (compareValue < expectedValue) {
@@ -66,12 +76,12 @@ export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
     }
   }
 
-  const requiredKeys = Object.keys(t.required);
+  const requiredKeys = Object.keys(required);
   if (requiredKeys.length > 0) {
     let foundRequired = false;
-    for (const required of requiredKeys) {
-      const expectedValue = t.required[required];
-      const compareValue = aspects[required];
+    for (const aspectKey of requiredKeys) {
+      const expectedValue = required[aspectKey];
+      const compareValue = aspects[aspectKey];
       if (compareValue === undefined) {
         continue;
       } else if (compareValue >= expectedValue) {
@@ -84,9 +94,9 @@ export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
     }
   }
 
-  for (const forbidden of Object.keys(t.forbidden)) {
-    const expectedValue = t.forbidden[forbidden];
-    const compareValue = aspects[forbidden];
+  for (const aspectKey of Object.keys(forbidden)) {
+    const expectedValue = forbidden[aspectKey];
+    const compareValue = aspects[aspectKey];
     if (compareValue === undefined) {
       continue;
     } else if (compareValue >= expectedValue) {
@@ -95,6 +105,13 @@ export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
   }
 
   return true;
+}
+
+/**
+ * @deprecated Use `aspectsMatchRequirements` instead.
+ */
+export function aspectsMatchSphereSpec(aspects: Aspects, t: SphereSpec) {
+  return aspectsMatchRequirements(aspects, t);
 }
 
 export function combineAspects(a: Aspects, b: Aspects): Aspects {
