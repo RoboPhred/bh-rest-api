@@ -91,6 +91,8 @@ export interface Situation extends TokenBase {
   recipeLabel: string | null;
   currentRecipeId: string | null;
   currentRecipeLabel: string | null;
+  openAmbitRecipeIds: string[];
+  lockedAmbitRecipeIds: string[];
   canExecute: boolean;
   state: SituationState;
   icon: string;
