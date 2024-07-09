@@ -86,10 +86,12 @@ export interface Situation extends TokenBase {
   aspects: Aspects;
   hints: string[];
   thresholds: SphereSpec[];
+  thresholdContents: Record<string, string | null>;
   recipeId: string | null;
   recipeLabel: string | null;
   currentRecipeId: string | null;
   currentRecipeLabel: string | null;
+  canExecute: boolean;
   state: SituationState;
   icon: string;
   label: string;
