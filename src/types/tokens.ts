@@ -80,7 +80,11 @@ export type SituationState =
   | "Starting";
 
 export interface Situation extends TokenBase {
-  payloadType: "Situation" | "WorkstationSituation" | "RoomWorkSituation";
+  payloadType:
+    | "Situation"
+    | "WorkstationSituation"
+    | "RoomWorkSituation"
+    | "SalonSituation";
   verbId: string;
   spontaneous: boolean;
   timeRemaining: number;
@@ -128,6 +132,7 @@ const situationPayloadTypes = [
   "Situation",
   "WorkstationSituation",
   "RoomWorkSituation",
+  "SalonSituation",
 ];
 
 export function isSituation(x: Token): x is Situation {
